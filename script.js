@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     btnModal.addEventListener("click", async function () {
       try {
         const res = await axios.get(
-          `http://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
+          `https://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
         );
         const detail = res.data;
         const imdbRating = res.data.Ratings.find(
@@ -49,7 +49,7 @@ searchButton.addEventListener("click", function () {
     try {
       const inputKeyword = document.querySelector(".input-keyword");
       const res = await axios.get(
-        `http://www.omdbapi.com/?apikey=9d99dbf3&s=${inputKeyword.value}`
+        `https://www.omdbapi.com/?apikey=9d99dbf3&s=${inputKeyword.value}`
       );
       const movies = res.data.Search;
       let cards = "";
@@ -65,7 +65,7 @@ searchButton.addEventListener("click", function () {
       btnModal.addEventListener("click", async function () {
         try {
           const res = await axios.get(
-            `http://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
+            `https://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
           );
           const detail = res.data;
           const imdbRating = res.data.Ratings.find(
