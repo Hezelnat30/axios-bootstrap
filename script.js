@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const res = await axios.get(
-      `https://www.omdbapi.com/?apikey=9d99dbf3&s=popular`
+      `https://www.omdbapi.com/?apikey=e123faa5&s=popular`
     );
     const movies = res.data.Search;
     let cards = "";
@@ -14,9 +14,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Ketika tombol diklik
     const btnModal = document.querySelector(".modal-detail-button");
     btnModal.addEventListener("click", async function () {
+      
       try {
         const res = await axios.get(
-          `https://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
+          `https://www.omdbapi.com/?apikey=e123faa5&i=${this.dataset.imdbid}`
         );
         const detail = res.data;
         const imdbRating = res.data.Ratings.find(
@@ -42,14 +43,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 const searchButton = document.querySelector(".search-button");
-searchButton.addEventListener("click", function () {
+searchButton.addEventListener("click", function (e) {
+  e.preventDefault()
   const getData = async () => {
     const spinner = document.querySelector("#spinner");
     spinner.classList.remove("d-none");
     try {
       const inputKeyword = document.querySelector(".input-keyword");
       const res = await axios.get(
-        `https://www.omdbapi.com/?apikey=9d99dbf3&s=${inputKeyword.value}`
+        `https://www.omdbapi.com/?apikey=e123faa5&s=${inputKeyword.value}`
       );
       const movies = res.data.Search;
       let cards = "";
@@ -65,7 +67,7 @@ searchButton.addEventListener("click", function () {
       btnModal.addEventListener("click", async function () {
         try {
           const res = await axios.get(
-            `https://www.omdbapi.com/?apikey=9d99dbf3&i=${this.dataset.imdbid}`
+            `https://www.omdbapi.com/?apikey=e123faa5&i=${this.dataset.imdbid}`
           );
           const detail = res.data;
           const imdbRating = res.data.Ratings.find(
@@ -93,12 +95,14 @@ searchButton.addEventListener("click", function () {
 });
 
 function showCards(movie) {
-  return `<div class="col-md-4 my-3">
+  return `<div class="col-md-3 my-3">
             <div class="card" style="height: 100%;">
-              <img src="${movie.Poster}" class="card-img-top" alt="${movie.imdbID}" style="height: 100%; object-fit: cover;" />
-              <div class="card-body">
+              <img src="${movie.Poster}" class="card-img-top" alt="${movie.imdbID}" style="object-fit: cover; height: 70%" />
+              <div class="card-body h-full d-flex flex-column justify-content-between">
+              <div class="title">
                 <h5 class="card-title">${movie.Title}</h5>
                 <h6 class="text-muted card-subtitle mb-2">${movie.Year}</h6>
+              </div>
                 <a href="#" class="btn btn-primary modal-detail-button" data-bs-toggle="modal"
                 data-bs-target="#movieDetailModal" data-imdbid="${movie.imdbID}">Show Details</a>
               </div>
