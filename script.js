@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const res = await axios.get(
-      `http://www.omdbapi.com/?apikey=9d99dbf3&s=popular`
+      `https://www.omdbapi.com/?apikey=9d99dbf3&s=popular`
     );
     const movies = res.data.Search;
     let cards = "";
