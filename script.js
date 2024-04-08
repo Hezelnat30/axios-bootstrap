@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     btnModal.forEach((btn) => {
       btn.addEventListener("click", async function () {
         const growSpinner = document.querySelector('#grow')
-        console.log(growSpinner)
         growSpinner.classList.remove('d-none')
         const imdbid = this.dataset.imdbid;
         try {
@@ -73,7 +72,6 @@ searchButton.addEventListener("click", function (e) {
       btnModal.forEach((btn) => {
         btn.addEventListener("click", async function () {
           const growSpinner = document.querySelector('#grow')
-          console.log(growSpinner)
           growSpinner.classList.remove('d-none')
           const imdbid = this.dataset.imdbid;
           try {

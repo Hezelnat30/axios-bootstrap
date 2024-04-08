@@ -1,7 +1,16 @@
 body {
+  background:linear-gradient(to right,#e0aaff,#90e0ef) ;
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 #spinner {
   border-radius: 50%;
+}
+
+.search-button {
+  border: 1px solid #7b2cbf;
+}
+
+.search-button:hover {
+  background-color:  #e0aaff ;
 }
