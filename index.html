@@ -42,12 +42,16 @@
   <!-- Modal -->
   <div class="modal fade" id="movieDetailModal" tabindex="-1" aria-labelledby="movieDetailModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-md-xl">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-4" id="movieDetailModalLabel" style="text-align: center">
             Hezelnat Movie
           </h1>
+          <div class="spinner-grow text-primary ms-1 d-none" id="grow" style="width: 1.5rem; height: 1.5rem;"
+            role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-4">

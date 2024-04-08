@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const res = await axios.get(
-      `https://www.omdbapi.com/?apikey=e123faa5&s=popular`
+      `https://www.omdbapi.com/?apikey=e123faa5&s=fantasy`
     );
     const movies = res.data.Search;
     let cards = "";
@@ -12,30 +12,36 @@ document.addEventListener("DOMContentLoaded", async function () {
     movieContainer.innerHTML = cards;
 
     // Ketika tombol diklik
-    const btnModal = document.querySelector(".modal-detail-button");
-    btnModal.addEventListener("click", async function () {
-      
-      try {
-        const res = await axios.get(
-          `https://www.omdbapi.com/?apikey=e123faa5&i=${this.dataset.imdbid}`
-        );
-        const detail = res.data;
-        const imdbRating = res.data.Ratings.find(
-          (rating) => rating.Source === "Internet Movie Database"
-        )?.Value;
-        const rottenTomatoesRating = res.data.Ratings.find(
-          (rating) => rating.Source === "Rotten Tomatoes"
-        )?.Value;
-        const movieDetail = showDetails(
-          detail,
-          imdbRating,
-          rottenTomatoesRating
-        );
-        const modalBody = document.querySelector(".modal-body");
-        modalBody.innerHTML = movieDetail;
-      } catch (error) {
-        console.log(`Data tidak ditemukan ${error}`);
-      }
+    const btnModal = document.querySelectorAll(".modal-detail-button");
+    btnModal.forEach((btn) => {
+      btn.addEventListener("click", async function () {
+        const growSpinner = document.querySelector('#grow')
+        console.log(growSpinner)
+        growSpinner.classList.remove('d-none')
+        const imdbid = this.dataset.imdbid;
+        try {
+          const res = await axios.get(
+            `https://www.omdbapi.com/?apikey=9d99dbf3&i=${imdbid}`
+          );
+          const detail = res.data;
+          const imdbRating = res.data.Ratings.find(
+            (rating) => rating.Source === "Internet Movie Database"
+          )?.Value;
+          const rottenTomatoesRating = res.data.Ratings.find(
+            (rating) => rating.Source === "Rotten Tomatoes"
+          )?.Value;
+          const movieDetail = showDetails(
+            detail,
+            imdbRating,
+            rottenTomatoesRating
+          );
+          const modalBody = document.querySelector(".modal-body");
+          modalBody.innerHTML = movieDetail;
+          growSpinner.classList.add('d-none')
+        } catch (error) {
+          console.log(`Data tidak ditemukan ${error}`)
+        }
+      });
     });
   } catch (error) {
     console.log(`Data tidak ditemukan ${error}`);
@@ -63,29 +69,36 @@ searchButton.addEventListener("click", function (e) {
       movieContainer.innerHTML = cards;
 
       // Ketika tombol diklik
-      const btnModal = document.querySelector(".modal-detail-button");
-      btnModal.addEventListener("click", async function () {
-        try {
-          const res = await axios.get(
-            `https://www.omdbapi.com/?apikey=e123faa5&i=${this.dataset.imdbid}`
-          );
-          const detail = res.data;
-          const imdbRating = res.data.Ratings.find(
-            (rating) => rating.Source === "Internet Movie Database"
-          )?.Value;
-          const rottenTomatoesRating = res.data.Ratings.find(
-            (rating) => rating.Source === "Rotten Tomatoes"
-          )?.Value;
-          const movieDetail = showDetails(
-            detail,
-            imdbRating,
-            rottenTomatoesRating
-          );
-          const modalBody = document.querySelector(".modal-body");
-          modalBody.innerHTML = movieDetail;
-        } catch (error) {
-          console.log(`Data tidak ditemukan ${error}`);
-        }
+      const btnModal = document.querySelectorAll(".modal-detail-button");
+      btnModal.forEach((btn) => {
+        btn.addEventListener("click", async function () {
+          const growSpinner = document.querySelector('#grow')
+          console.log(growSpinner)
+          growSpinner.classList.remove('d-none')
+          const imdbid = this.dataset.imdbid;
+          try {
+            const res = await axios.get(
+              `https://www.omdbapi.com/?apikey=9d99dbf3&i=${imdbid}`
+            );
+            const detail = res.data;
+            const imdbRating = res.data.Ratings.find(
+              (rating) => rating.Source === "Internet Movie Database"
+            )?.Value;
+            const rottenTomatoesRating = res.data.Ratings.find(
+              (rating) => rating.Source === "Rotten Tomatoes"
+            )?.Value;
+            const movieDetail = showDetails(
+              detail,
+              imdbRating,
+              rottenTomatoesRating
+            );
+            const modalBody = document.querySelector(".modal-body");
+            modalBody.innerHTML = movieDetail;
+            growSpinner.classList.add('d-none')
+          } catch (error) {
+            console.log(`Data tidak ditemukan ${error}`)
+          }
+        });
       });
     } catch (error) {
       console.log(`Data tidak ditemukan ${error}`);
@@ -97,7 +110,7 @@ searchButton.addEventListener("click", function (e) {
 function showCards(movie) {
   return `<div class="col-md-3 my-3">
             <div class="card" style="height: 100%;">
-              <img src="${movie.Poster}" class="card-img-top" alt="${movie.imdbID}" style="object-fit: cover; height: 70%" />
+              <img src="${movie.Poster}" class="card-img-top" alt="${movie.imdbID}" style="object-fit: cover; height: 70%"; />
               <div class="card-body h-full d-flex flex-column justify-content-between">
               <div class="title">
                 <h5 class="card-title">${movie.Title}</h5>
