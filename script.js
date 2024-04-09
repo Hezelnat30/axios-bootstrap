@@ -14,11 +14,20 @@ searchButton.addEventListener('click', async function (e){
   const spinner = document.querySelector("#spinner");
   spinner.classList.remove("d-none");
 
-  const inputKeyword = document.querySelector(".input-keyword");
-  const movies = await getMovies(inputKeyword.value)
+  const inputKeyword = document.querySelector(".input-keyword").value.trim();
+  if( inputKeyword.length === 0 ) {
+    showAlert('Masukan input yang valid!','danger')
+  }
 
-  spinner.classList.add('d-none')
-  updateUI(movies)
+  try {
+    const movies = await getMovies(inputKeyword)
+  
+    spinner.classList.add('d-none')
+    updateUI(movies)
+  } catch (error) {
+    console.log('Data tidak ditemukan', error)
+  }
+
 })
 
 // Event Binding
@@ -54,23 +63,24 @@ function updateUIDetail(detail, imdbRating, rottenTomatoesRating, metacritic){
 function getMovies (keyword) {
     return axios.get(`https://www.omdbapi.com/?apikey=e123faa5&s=${keyword}`)
       .then(res => {
-        const data = res.data.Search;
-        return data;
-      })
-      .catch(err => {
-        console.log(`Data tidak ditemukan ${err}`)
+        if ( !res ) {
+          throw new Error(`Data tidak ditemukan ${res.statusText}`)
+        } else {
+          const data = res.data.Search;
+          return data;
+        }
       })
 }
 
 function updateUI (movies) {
+  const movieContainer = document.querySelector(".movie-container");
   if(movies && movies.length > 0) {
     let cards = "";
     movies.forEach(m => cards += showCards(m));
-    const movieContainer = document.querySelector(".movie-container");
     movieContainer.innerHTML = cards;
   } else {
     const movieContainer = document.querySelector(".movie-container");
-    movieContainer.innerHTML = "<h3>Data tidak ditemukan.</h3>";
+    movieContainer.innerHTML = "<h3 class='text-center p-3 m-2 text-danger'>Data tidak ditemukan.</h3>";
     console.error("Data tidak ditemukan atau terjadi kesalahan dalam memuat data.");
   }
 }
@@ -126,4 +136,19 @@ function showDetails(detail, imdbRating, rottenTomatoesRating, metacritic) {
             </div>
           </div>
         </div>`;
+}
+
+function showAlert(message, type) {
+  const alertDiv = document.createElement('div');
+  alertDiv.classList.add('alert', `alert-${type}`, 'my-3');
+  alertDiv.setAttribute('role', 'alert');
+  alertDiv.textContent = message;
+
+  const container = document.querySelector('.container');
+  container.append(alertDiv);
+
+  // Menghapus alert setelah beberapa detik
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 5000);
 }
