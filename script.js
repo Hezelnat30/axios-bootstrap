@@ -120,7 +120,7 @@ function showDetails(detail, imdbRating, rottenTomatoesRating, metacritic) {
                   <br>
                   <strong>Rotten Tomatoes : </strong><i class="fa-solid fa-lemon text-danger"></i> ${rottenTomatoesRating}
                   <br>
-                  <strong>Metacritic : </strong><i class="fa-solid fa-lemon text-danger"></i> ${metacritic}
+                  <strong>Metacritic : </strong><i class="bi bi-meta text-info"></i> ${metacritic}
                 </li>
               </ul>
             </div>
